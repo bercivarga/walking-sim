@@ -2,10 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { lerp } from 'three/src/math/MathUtils';
 import { cube, ground, updateCube } from './geometries';
 
 import { world } from './interactions/world';
+
+import { camera } from './camera';
+import { updateCamera } from './interactions/cameraMovement';
 
 export default function init() {
   // Initialise scene
@@ -26,16 +28,6 @@ export default function init() {
   // Add FPS stats in top left corner
   const stats = Stats();
   document.body.appendChild(stats.dom);
-
-  // add camera
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000,
-  );
-  camera.position.z = 6;
-  camera.position.y = 8;
 
   // Add OrbitControls
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -72,14 +64,6 @@ export default function init() {
 
   const clock = new THREE.Clock();
   let delta = 0;
-
-  // update camera in relation to the cube's offset
-  function updateCamera() {
-    camera.position.x = lerp(camera.position.x, cube.position.x, 0.1);
-    camera.position.y = lerp(camera.position.y, cube.position.y + 6, 0.1);
-    camera.position.z = lerp(camera.position.z, cube.position.z + 8, 0.1);
-    camera.lookAt(cube.position);
-  }
 
   (function animate() {
     requestAnimationFrame(animate);
