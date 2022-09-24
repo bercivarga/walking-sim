@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { AxesHelper } from 'three';
 import { cube, ground } from './geometries';
 
+import { addHandleMoveEvent } from './physics';
+
 export default function init() {
   // Initialise scene
   const scene = new THREE.Scene();
@@ -38,6 +40,17 @@ export default function init() {
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
   directionalLight.position.set(2, 5, 5);
   directionalLight.castShadow = true;
+  // set light cast shadow distance
+  directionalLight.shadow.camera.scale.set(2, 2, 2);
+  directionalLight.shadow.camera.near = 0.1;
+  directionalLight.shadow.camera.far = 20;
+  directionalLight.shadow.mapSize.width = 1024;
+  directionalLight.shadow.mapSize.height = 1024;
+
+  // Light shadow camera helper
+  const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+  scene.add(helper);
+
   const ambientLight = new THREE.AmbientLight(0xffffff, 1);
   scene.add(directionalLight, ambientLight);
 
@@ -51,6 +64,9 @@ export default function init() {
   // Adding geometries
   scene.add(cube);
   scene.add(ground);
+
+  // Adding event listeners
+  addHandleMoveEvent();
 
   (function animate() {
     requestAnimationFrame(animate);
