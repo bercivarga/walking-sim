@@ -1,10 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { AxesHelper } from 'three';
-import { cube, ground } from './geometries';
+import { cube, ground, updateCube } from './geometries';
 
-import { addHandleMoveEvent } from './physics';
+import { addHandleMoveEvent } from './interactions';
+import { world } from './interactions/world';
 
 export default function init() {
   // Initialise scene
@@ -22,6 +24,10 @@ export default function init() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default
   document.body.appendChild(renderer.domElement);
 
+  // Add FPS stats in top left corner
+  const stats = Stats();
+  document.body.appendChild(stats.dom);
+
   // add camera
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -32,9 +38,8 @@ export default function init() {
   camera.position.z = 6;
   camera.position.y = 8;
 
-  // add orbitcontrols
-  // eslint-disable-next-line no-new
-  (new OrbitControls(camera, renderer.domElement));
+  // Add OrbitControls
+  const controls = new OrbitControls(camera, renderer.domElement);
 
   // add directional and ambient lighting
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
@@ -51,7 +56,7 @@ export default function init() {
   const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
   scene.add(helper);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
   scene.add(directionalLight, ambientLight);
 
   // update the scene on window resize
@@ -68,8 +73,19 @@ export default function init() {
   // Adding event listeners
   addHandleMoveEvent();
 
+  const clock = new THREE.Clock();
+  let delta = 0;
+
   (function animate() {
     requestAnimationFrame(animate);
+    controls.update();
+
+    delta = Math.min(clock.getDelta(), 0.1);
+    world.step(delta);
+
+    updateCube();
+
     renderer.render(scene, camera);
+    stats.update();
   }());
 }

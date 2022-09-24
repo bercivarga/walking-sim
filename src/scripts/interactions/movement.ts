@@ -1,4 +1,4 @@
-import { cube } from '../geometries';
+import { cubeBody } from '../geometries';
 
 export function addHandleMoveEvent() {
   const keyPressed: Record<string, boolean> = {};
@@ -13,16 +13,16 @@ export function addHandleMoveEvent() {
   function animateCube() {
     requestAnimationFrame(animateCube);
     if (keyPressed.ArrowRight || keyPressed.d) {
-      cube.position.x += 0.1;
+      cubeBody.position.x += 0.1;
     }
     if (keyPressed.ArrowLeft || keyPressed.a) {
-      cube.position.x -= 0.1;
+      cubeBody.position.x -= 0.1;
     }
     if (keyPressed.ArrowUp || keyPressed.w) {
-      cube.position.z -= 0.1;
+      cubeBody.position.z -= 0.1;
     }
     if (keyPressed.ArrowDown || keyPressed.s) {
-      cube.position.z += 0.1;
+      cubeBody.position.z += 0.1;
     }
   }
   animateCube();
