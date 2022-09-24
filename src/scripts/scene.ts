@@ -4,7 +4,6 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { cube, ground, updateCube } from './geometries';
 
-import { addHandleMoveEvent } from './interactions';
 import { world } from './interactions/world';
 
 export default function init() {
@@ -69,9 +68,6 @@ export default function init() {
   // Adding geometries
   scene.add(cube);
   scene.add(ground);
-
-  // Adding event listeners
-  addHandleMoveEvent();
 
   const clock = new THREE.Clock();
   let delta = 0;
