@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
+import { lerp } from 'three/src/math/MathUtils';
 import { cube, ground, updateCube } from './geometries';
 
 import { world } from './interactions/world';
@@ -72,9 +73,19 @@ export default function init() {
   const clock = new THREE.Clock();
   let delta = 0;
 
+  // update camera in relation to the cube's offset
+  function updateCamera() {
+    camera.position.x = lerp(camera.position.x, cube.position.x, 0.1);
+    camera.position.y = lerp(camera.position.y, cube.position.y + 6, 0.1);
+    camera.position.z = lerp(camera.position.z, cube.position.z + 8, 0.1);
+    camera.lookAt(cube.position);
+  }
+
   (function animate() {
     requestAnimationFrame(animate);
     controls.update();
+
+    updateCamera();
 
     delta = Math.min(clock.getDelta(), 0.1);
     world.step(delta);
