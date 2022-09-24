@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { AxesHelper } from 'three';
 import { cube, ground, updateCube } from './geometries';
 
 import { addHandleMoveEvent } from './interactions';
@@ -13,7 +12,7 @@ export default function init() {
   const scene = new THREE.Scene();
 
   // Axes helper for better visual representation
-  scene.add(new AxesHelper(10));
+  scene.add(new THREE.AxesHelper(10));
 
   // Create a renderer
   const renderer = new THREE.WebGLRenderer();
@@ -40,6 +39,7 @@ export default function init() {
 
   // Add OrbitControls
   const controls = new OrbitControls(camera, renderer.domElement);
+  controls.maxPolarAngle = Math.PI / 2;
 
   // add directional and ambient lighting
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
