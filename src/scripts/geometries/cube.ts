@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 import { world } from '../interactions/world';
 
+import { addHandleMoveEvent, addHandleJumpEvent } from '../interactions';
+
 export const cube = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
   new THREE.MeshStandardMaterial({ color: 0xffff00 }),
@@ -20,6 +22,9 @@ cubeBody.position.x = cube.position.x;
 cubeBody.position.y = cube.position.y;
 cubeBody.position.z = cube.position.z;
 world.addBody(cubeBody);
+
+addHandleMoveEvent(cubeBody);
+addHandleJumpEvent(cubeBody);
 
 // Update ****************************************************************
 
