@@ -11,7 +11,7 @@ import {
 import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { scene } from './scene';
-import { ground } from './geometries';
+import { updateCube } from './geometries';
 import { world } from './interactions/world';
 import { camera } from './camera';
 
@@ -57,9 +57,6 @@ export default function init() {
     camera.updateProjectionMatrix();
   });
 
-  // Adding geometries
-  scene.add(ground);
-
   const clock = new Clock();
   let delta = 0;
 
@@ -68,6 +65,8 @@ export default function init() {
 
     delta = Math.min(clock.getDelta(), 0.1);
     world.step(delta);
+
+    updateCube();
 
     renderer.render(scene, camera);
     stats.update();

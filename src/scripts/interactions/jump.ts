@@ -1,7 +1,7 @@
 import { Body } from 'cannon-es';
 
 export function addHandleJumpEvent(body: Body): void {
-  let canJump = true;
+  let canJump = false;
 
   body.addEventListener('collide', () => {
     canJump = true;

@@ -40,8 +40,6 @@ export function loadPirateCaptain(scene: Scene): void {
       gltf.scene.position.z,
     );
 
-    body.angularDamping = 0.8;
-
     world.addBody(body);
 
     function updatePosition() {
