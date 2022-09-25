@@ -9,12 +9,12 @@ import { world } from '../interactions/world';
 
 export function loadPirateCaptain(scene: Scene): void {
   gltfLoader.load('src/modelAssets/pirate_captain.gltf', (gltf) => {
-    gltf.scene.children.forEach((child) => child.scale.set(1, 1, 1));
+    gltf.scene.children.forEach((child) => child.scale.set(1.4, 1.4, 1.4));
     gltf.scene.children.forEach((child) => child.position.set(0, 0, 0));
     gltf.scene.children.forEach((child) => child.rotation.set(0, 0, 0));
-    // eslint-disable-next-line no-param-reassign
+    // eslint-disable-next-line no-param-reassign,no-return-assign
     gltf.scene.children.forEach((child) => child.castShadow = true);
-    // eslint-disable-next-line no-param-reassign
+    // eslint-disable-next-line no-param-reassign,no-return-assign
     gltf.scene.children.forEach((child) => child.receiveShadow = true);
 
     gltf.scene.children.forEach((child) => child.position.normalize());
