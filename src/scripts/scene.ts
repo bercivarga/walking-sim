@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { cube, ground, updateCube } from './geometries';
@@ -28,10 +27,6 @@ export default function init() {
   // Add FPS stats in top left corner
   const stats = Stats();
   document.body.appendChild(stats.dom);
-
-  // Add OrbitControls
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.maxPolarAngle = Math.PI / 2;
 
   // add directional and ambient lighting
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
@@ -67,7 +62,6 @@ export default function init() {
 
   (function animate() {
     requestAnimationFrame(animate);
-    controls.update();
 
     updateCamera();
 
