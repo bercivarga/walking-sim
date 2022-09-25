@@ -8,3 +8,4 @@ export const camera = new PerspectiveCamera(
 );
 camera.position.z = 6;
 camera.position.y = 8;
+camera.lookAt(0, 0, 0);

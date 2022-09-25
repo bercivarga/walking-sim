@@ -13,7 +13,6 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { scene } from './scene';
 import { cube, ground, updateCube } from './geometries';
 import { world } from './interactions/world';
-import { updateCamera } from './interactions/cameraMovement';
 import { camera } from './camera';
 
 export default function init() {
@@ -67,8 +66,6 @@ export default function init() {
 
   (function animate() {
     requestAnimationFrame(animate);
-
-    updateCamera();
 
     delta = Math.min(clock.getDelta(), 0.1);
     world.step(delta);
