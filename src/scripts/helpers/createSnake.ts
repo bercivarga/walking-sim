@@ -14,9 +14,6 @@ export default function createSnake() {
   snake.name = 'snakeHead';
 
   const body = addPhysicsToCube(snake);
-  body.position.x = snake.position.x;
-  body.position.y = snake.position.y;
-  body.position.z = snake.position.z;
 
   addHandleMoveEvent(snake.position);
 
@@ -26,11 +23,11 @@ export default function createSnake() {
   snakeGroup.add(snake);
 
   (function moveCameraToSnake() {
-    requestAnimationFrame(moveCameraToSnake);
-    updateCamera(snake.position);
     body.position.x = snake.position.x;
     body.position.y = snake.position.y;
     body.position.z = snake.position.z;
+    requestAnimationFrame(moveCameraToSnake);
+    updateCamera(snake.position);
   }());
 
   return snakeGroup;

@@ -3,8 +3,6 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 
 import scene from './scene';
 
-import { updateCube } from './geometries';
-
 import { world } from './interactions/world';
 
 import { camera } from './camera';
@@ -65,15 +63,13 @@ export default function init() {
     requestAnimationFrame(animate);
 
     delta = Math.min(clock.getDelta(), 0.1);
-    world.step(delta);
+    if (delta > 0) world.step(delta);
 
     const nowCopy = now as unknown as number;
 
     if (!last || nowCopy - last >= 2 * 1000) {
       last = nowCopy;
     }
-
-    updateCube();
 
     renderer.render(scene, camera);
     stats.update();
