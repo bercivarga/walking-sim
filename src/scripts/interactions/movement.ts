@@ -1,6 +1,6 @@
-import { cubeBody } from '../geometries';
+import { Vector3 } from 'three';
 
-export function addHandleMoveEvent() {
+export function addHandleMoveEvent(target: Vector3) {
   const keyPressed: Record<string, boolean> = {};
 
   window.addEventListener('keydown', (event) => {
@@ -13,16 +13,16 @@ export function addHandleMoveEvent() {
   function animateCube() {
     requestAnimationFrame(animateCube);
     if (keyPressed.ArrowRight || keyPressed.d) {
-      cubeBody.position.x += 0.1;
+      target.x += 0.1;
     }
     if (keyPressed.ArrowLeft || keyPressed.a) {
-      cubeBody.position.x -= 0.1;
+      target.x -= 0.1;
     }
     if (keyPressed.ArrowUp || keyPressed.w) {
-      cubeBody.position.z -= 0.1;
+      target.z -= 0.1;
     }
     if (keyPressed.ArrowDown || keyPressed.s) {
-      cubeBody.position.z += 0.1;
+      target.z += 0.1;
     }
   }
   animateCube();
