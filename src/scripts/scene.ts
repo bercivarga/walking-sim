@@ -4,10 +4,12 @@ import createSnake from './helpers/createSnake';
 
 export const scene = new Scene();
 
+// Initialise snake
+const snakeGroup = createSnake();
+
 // Load in individual objects
 scene.add(ground);
 
-// Initialise snake
-scene.add(createSnake());
+scene.add(snakeGroup);
 
 export default scene;
